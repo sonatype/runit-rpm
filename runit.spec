@@ -8,7 +8,7 @@
 
 Name:           runit
 Version:        2.1.1
-Release:        6%{?_with_dietlibc:diet}%{?dist}
+Release:        7%{?_with_dietlibc:diet}%{?dist}
 
 Group:          System/Base
 License:        BSD
@@ -68,6 +68,11 @@ for i in man/*8 ; do
 done
 %{__install} -d -m 0755 %{buildroot}/etc/service
 %{__install} -D -m 0750 etc/2 %{buildroot}%{_sbindir}/runsvdir-start
+
+mkdir -p %{buildroot}%{_bindir}
+for i in setuidgid envuidgid envdir softlimit setlock; do
+    ln -sf %{_sbindir}/chpst  %{buildroot}%{_bindir}/$i
+done
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -135,12 +140,20 @@ fi
 %{_sbindir}/svlogd
 %{_sbindir}/utmpset
 %{_sbindir}/runsvdir-start
+%{_bindir}/setuidgid
+%{_bindir}/envuidgid
+%{_bindir}/envdir
+%{_bindir}/softlimit
+%{_bindir}/setlock
 %{_mandir}/man8/*.8*
 %doc doc/* etc/
 %doc package/CHANGES package/COPYING package/README package/THANKS package/TODO
 %dir /etc/service
 
 %changelog
+* Tue Oct 2 2012 Jason Swank <jswank@sonatype.com> 2.1.1-7
+- modified spec to include links chpst compatibility symlinks
+
 * Fri Jan 20 2012 Joe Miller <joeym@joeym.net> 2.1.1-6
 - modified spec to build on centos-5 (by only requiring glibc-static on centos-6)
 
