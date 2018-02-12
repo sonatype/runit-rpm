@@ -8,7 +8,7 @@
 
 Name:           runit
 Version:        2.1.2
-Release:        1%{?_with_dietlibc:diet}%{?dist}
+Release:        2%{?_with_dietlibc:diet}%{?dist}
 
 Group:          System/Base
 License:        BSD
@@ -176,11 +176,11 @@ fi
 %dir /etc/service
 
 %changelog
+* Mon Feb 12 2018 Jason Swank <jswank@sonatype.com> 2.1.2-2
+- modified spec to include links chpst compatibility symlinks
+
 * Thu Aug 21 2014 Chris Gaffney <gaffneyc@gmail.com> 2.1.2-1
 - Initial release of 2.1.2
-
-* Tue Oct 2 2012 Jason Swank <jswank@sonatype.com> 2.1.1-7
-- modified spec to include links chpst compatibility symlinks
 
 * Fri Jan 20 2012 Joe Miller <joeym@joeym.net> 2.1.1-6
 - modified spec to build on centos-5 (by only requiring glibc-static on centos-6)
